@@ -1,0 +1,108 @@
+module boolTest
+import bool
+import pair
+
+b1:bool
+b1 = true
+b2:bool
+b2 = true
+b3:bool
+b3 = false
+b4:bool
+b4 = not true
+b5:bool
+b5 = not b1
+b6:bool
+b6= not (not b5)
+
+{-- Part #1 hw test--}
+
+--#1
+a1:bool
+a1= andp (mkPair true false)
+a2:bool
+a2= andp (mkPair false true)
+a3:bool
+a3= andp (mkPair false false)
+
+--#2
+o1:bool
+o1= orp (mkPair true true)
+o2:bool
+o2= orp (mkPair false true)
+o3:bool
+o3= orp (mkPair true false)
+
+--#3
+na1:bool
+na1= nandp (mkPair false false)
+na2: bool
+na2= nandp (mkPair true false)
+na3:bool
+na3= nandp (mkPair false true)
+
+--#4
+xor1:bool
+xor1= xorp (mkPair false false)
+xor2:bool
+xor2= xorp (mkPair true true)
+
+
+
+
+{--Lab exam Test cases--}
+
+pand_t_t: bool
+pand_t_t=pand true true
+--expect true
+pand_x_x:bool
+pand_x_x=pand true false
+--expect false
+pand_d_d:bool
+pand_d_d= pand false true
+--expect false
+pand_f_f:bool
+pand_f_f=pand false false
+--expect false
+
+por_t_t:bool
+por_t_t= por true true
+--expect true
+por_d_d:bool
+por_d_d= por true false
+--expect true
+por_g_g:bool
+por_g_g= por false true
+--expect true
+por_h_h:bool
+por_h_h=por false false
+--expect false
+
+pxor_t_t:bool
+pxor_t_t=pxor true true
+--expect false
+pxor_j_j:bool
+pxor_j_j=pxor true false
+--expect true
+pxor_y_y:bool
+pxor_y_y=pxor false true
+--expect true
+pxor_q_q:bool
+pxor_q_q= pxor false false
+--expect false
+
+pnand_t_t:bool
+pnand_t_t= pnand true true
+--expect false
+pnand_r_r:bool 
+pnand_r_r= pnand true false
+--expect true
+pnand_c_c:bool
+pnand_c_c=pnand false true
+--expect true
+pnand_b_b:bool
+pnand_b_b=pnand false false
+--expect true
+
+
+

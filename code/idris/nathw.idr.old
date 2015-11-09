@@ -1,0 +1,127 @@
+module nat
+import bool
+import pair
+data nat=O|S nat
+z:nat
+z=O
+o:nat
+o=S O
+tw:nat
+tw=S o
+th:nat
+th=S tw
+fo:nat
+fo=S th
+--Hw #5
+fi:nat
+fi=S fo
+si:nat
+si=S fi
+se:nat
+se=S si
+
+isZero:nat->bool
+isZero O=true
+isZero _=false
+--homewprk #7
+x:bool
+x= isZero th
+
+succ:nat->nat
+succ n=S n
+y:nat
+y= succ O
+
+pred:nat->nat
+pred O=O
+pred (S n)=n
+
+evenb:nat->bool
+evenb O=true
+evenb (S O)=false
+evenb (S(S n))= evenb n
+
+oddb:nat->bool
+oddb n=not (evenb n)
+
+
+
+--homework #10
+{-evenb (S th)-in my case th=r- means that for the function evenb (S(S
+n)=evenb n it will keep reducing down through that function until it
+reduces down to O=true or (S O)=false. For evenb (S th) in
+particular:evenb (S(S(S th)))=evenb (S th) pattern matches to the
+function evenb (S(S n))=evenb n, so evenb (S(S(S O)))=evenb (S O) then
+evenb (S O)=false since (S O) fits the pattern of the function
+evenb (S O)=false-}
+
+addp: pair nat nat -> nat
+addp (mkPair O m) = m
+addp (mkPair (S n) m) = S (addp (mkPair n m))
+
+add:nat->nat->nat
+add O m= m
+add (S n) m= S (add n m)
+
+pf:nat->nat
+pf=(add (S(S O)))
+
+
+
+multp: pair nat nat -> nat
+multp (mkPair O m) = O
+multp (mkPair (S n) m) = addp (mkPair m (multp (mkPair n m)))
+
+factp: nat -> nat
+factp O =(S O)
+factp (S n') = multp (mkPair (S n') (factp (n')))
+
+subp: pair nat nat -> nat
+subp (mkPair O m)=O
+subp (mkPair n O)=n
+subp (mkPair (S n) (S m)) = subp (mkPair n m)
+
+--PART II: In nat.idr, provide implementations of the following functions:
+ 
+{--#5: exp - given a pair of natural numbers, (x, n), return the value of x raised to the nth power--}
+exp: pair nat nat-> nat
+exp (mkPair x O) = (S O)
+exp (mkPair x (S n)) = multp(mkPair x (exp (mkPair x n)))
+
+
+--#6: lep -- given a pair of natural numbers, (a, b), return true if a is less than or equal to b, otherwise return false
+lep: pair nat nat -> bool
+lep (mkPair O m) = true
+lep (mkPair (S n) O) =false
+lep (mkPair (S n) (S m)) = lep (mkPair n m)
+
+
+--#7: eqp -- given a pair of natural numbers, (a, b), return true if a is equal to b, otherwise return false
+eql_nat: nat-> nat -> bool
+eql_nat  O O=true
+eql_nat  O (S n) =false
+eql_nat (S n) O = false
+eql_nat (S n) (S m) = eql_nat n m
+
+ 
+--#8: gtp -- given a pair of natural numbers, (a, b), return true if a is greater than b, otherwise return false
+
+gtp: pair nat nat->bool
+gtp (mkPair (S n) O)=true
+gtp (mkPair O n)= false
+gtp (mkPair (S n) (S m)) = gtp (mkPair n m)
+
+
+--#9: gep -- given a pair of natural numbers, (a, b), return true of a is greater than or equal to b
+gep: pair nat nat -> bool
+gep (mkPair n O) =true
+gep (mkPair O m)=false
+gep (mkPair (S n) (S m)) = gep (mkPair n m)
+
+--#10: ltp -- given a pair of natural numbers, (a, b), return true if a is less than b
+ltp: pair nat nat -> bool
+ltp p= not (gep p)
+ 
+   
+--HINTS for Part II: (A) find recursive solutions for 5-7 inclusive; (B) figure out the recursive definitions first, before trying to write the Idris code, and only then should you try to write the code; (C) use these functions along with your new bool functions for 8-10
+

@@ -1,0 +1,5 @@
+module dog
+
+data name= heidi|jae
+whosdog:name->name
+whosdog heidi=jae
